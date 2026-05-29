@@ -1,13 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Big Small Game</title>
+<title>Big Small Arena</title>
+
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#0f172a;
+    color:white;
+    padding-top:50px;
+}
+
+button{
+    padding:15px 30px;
+    font-size:20px;
+    margin:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#big{
+    background:green;
+    color:white;
+}
+
+#small{
+    background:red;
+    color:white;
+}
+
+#timer{
+    font-size:40px;
+}
+</style>
+
 </head>
 <body>
 
-<h1>Welcome to Big Small Arena</h1>
+<h1>Big Small Arena</h1>
 
-<p>Login Successful!</p>
+<h2>Time Left</h2>
+<div id="timer">20</div>
+
+<button id="big" onclick="selectOption('Big')">BIG</button>
+<button id="small" onclick="selectOption('Small')">SMALL</button>
+
+<h2 id="choice"></h2>
+<h2 id="result"></h2>
+
+<script>
+
+let selected="";
+let time=20;
+
+function selectOption(option){
+    selected=option;
+    document.getElementById("choice").innerHTML=
+    "Selected: "+option;
+}
+
+let countdown=setInterval(function(){
+
+    time--;
+    document.getElementById("timer").innerHTML=time;
+
+    if(time<=0){
+
+        clearInterval(countdown);
+
+        let outcome=Math.random()<0.5 ? "Big" : "Small";
+
+        if(selected===""){
+            document.getElementById("result").innerHTML=
+            "No Selection!";
+        }
+        else if(selected===outcome){
+            document.getElementById("result").innerHTML=
+            "🎉 WIN<br>Result: "+outcome;
+        }
+        else{
+            document.getElementById("result").innerHTML=
+            "❌ LOSE<br>Result: "+outcome;
+        }
+    }
+
+},1000);
+
+</script>
 
 </body>
 </html>
